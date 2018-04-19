@@ -1,0 +1,59 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.0.1'
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+
+        //本地仓库 相对路径
+//        maven{
+//            url "../repo"
+//        }
+//        ivy{
+//            url "http://repo.acmecorp.com/maven2"
+//        }
+        //自有仓库
+//        maven{
+//            url "http://repo.acmecorp.com/maven2"
+//        }
+//        ivy{
+//            url "http://repo.acmecorp.com/maven2"
+//        }
+        //自有仓库权限方式 该方式最好配置到 gradle.properties
+//        maven{
+//            url "http://repo.acmecorp.com/maven2"
+//            credentials{
+//                username 'name'
+//                password 'password'
+//            }
+//        }
+//        ivy{
+//            url "http://repo.acmecorp.com/maven2"
+//        }
+
+    }
+
+    ext {
+        compileVersion = 26
+        support = '26.1.0'
+        miniVersion = 19
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

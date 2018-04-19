@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:keep="@drawable/ic_launcher_background,@drawable/ic_launcher_*" /><!--如此问题就解决了。如果项目中需要keep多个资源可以tools:keep="@drawable/a,@layout/b,@layout/c"。意思就是在混淆的时候这些资源不要删除。-->
+

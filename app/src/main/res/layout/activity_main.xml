@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.lxch.gradledemo.MainActivity">
+
+    <TextView
+        android:id="@+id/tv1"
+        android:layout_width="match_parent"
+        android:layout_height="@android:dimen/app_icon_size"
+        android:text="TextView"
+        android:textColor="@color/colorAccent"
+        android:textSize="20sp"
+        android:visibility="visible"
+        tools:layout_editor_absoluteX="11dp"
+        tools:layout_editor_absoluteY="7dp"
+        tools:text="asdf" />
+
+    <TextView
+        android:id="@+id/tv2"
+        android:layout_width="395dp"
+        android:layout_height="@android:dimen/app_icon_size"
+        android:layout_marginTop="16dp"
+        android:text="TextView"
+        android:textColor="@color/colorAccent"
+        android:textSize="20sp"
+        android:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@+id/tv1"
+        tools:layout_editor_absoluteX="8dp"
+        tools:text="asdf" />
+</android.support.constraint.ConstraintLayout>

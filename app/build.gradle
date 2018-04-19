@@ -1,0 +1,90 @@
+apply plugin: 'com.android.application'
+
+android {
+    signingConfigs {
+        release {
+            keyAlias 'gradledemo'
+            keyPassword 'android'
+            storeFile file('/Volumes/MacintoshHD/workspace/demospace/gradleDemo/app/gradledemo')
+            storePassword 'android'
+        }
+    }
+    compileSdkVersion rootProject.ext.compileVersion
+    defaultConfig {
+        applicationId "com.lxch.gradledemo"
+        minSdkVersion rootProject.ext.miniVersion
+        targetSdkVersion rootProject.ext.compileVersion
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        debug {
+            //可用于配置服务器地址
+            //在java内 都通过 BuildConfig.使用
+            buildConfigField("String", "appUrl", "\"http://www.baidu.com\"")
+            //可配置资源 但同时要删掉 res对应的名字
+            resValue("string", "app_name", "debug")
+            signingConfig signingConfigs.release
+        }
+        release {
+
+            buildConfigField("String", "appUrl", "\"http://www.tencent.com\"")
+            resValue("string", "app_name", "release")
+            minifyEnabled true //是否开启混淆 默认false
+            // 是否删除无效资源 默认false
+            // 开启 shrinkResources 可能会引起一些资源未引用 而实际已经使用到
+            // 解决办法如下：
+            // 新增res/raw/keep.xml文件，在里面把需要保留的资源文件列举出来
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //默认为true
+            debuggable false
+            signingConfig signingConfigs.release
+        }
+        staging {
+            applicationIdSuffix '.staging'
+            resValue("string", "app_name", "staging")
+            buildConfigField("String", "appUrl", "\"https://www.freevpn.pw\"")
+
+            //扩展出新的 applicationId = defaultConfig.applicationId+'.staging'
+            versionNameSuffix '-staging' //扩展出新的versionName
+        }
+    }
+    //被用来创建不同版本 不仅仅用在友盟 可配置多个不同维度的apk 配置可在里面自定义
+    flavorDimensions 'color'
+    productFlavors {
+        red {
+            applicationId 'com.lxch.gradledemo.red'
+            versionCode 4
+            dimension 'color'
+        }
+        blue {
+            applicationId 'com.lxch.gradledemo.blue'
+            versionCode 4
+            dimension 'color'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+android.variantFilter { variantFilter ->
+    if (variantFilter.buildType.name.equals('release')) {
+        variantFilter.getFlavors().each { flavorDimensionList ->
+            if (flavorDimensionList.name.equals('red'))
+                variantFilter.setIgnore(true)
+
+        }
+    }
+
+}
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "com.android.support:appcompat-v7:$rootProject.ext.support"
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+}
